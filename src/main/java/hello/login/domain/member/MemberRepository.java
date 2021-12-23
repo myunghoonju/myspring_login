@@ -1,0 +1,46 @@
+package hello.login.domain.member;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Slf4j
+@Repository
+public class MemberRepository {
+
+    private static Map<Long, Member> store = new ConcurrentHashMap<>();
+    private static Long seq = 0L;
+
+    public Member save(Member member) {
+        member.setId(++seq);
+        log.info("save = member {}", member);
+        store.put(member.getId(), member);
+        return member;
+    }
+
+    public Member findById(Long id) {
+        return store.get(id);
+    }
+
+    public Optional<Member> findByLoginId(String loginid) {
+        List<Member> all = findAll();
+        return findAll()
+                .stream()
+                .filter(m -> m.getLoginId().equals(loginid))
+                .findFirst();
+
+    }
+
+    public List<Member> findAll() {
+        return new ArrayList<>(store.values());
+    }
+
+    public void clearStore() {
+        store.clear();
+    }
+}
