@@ -42,6 +42,7 @@ public class LoginController {
         }
 
         HttpSession session = request.getSession(true);
+        session.setMaxInactiveInterval(60);
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
         return "redirect:/";
