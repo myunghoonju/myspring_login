@@ -9,24 +9,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/login")
 @RequiredArgsConstructor
 public class LoginController {
 
     private final LoginService loginService;
 
-    @GetMapping
+    @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm") LoginForm loginForm) {
         return "login/loginForm";
     }
 
-    @PostMapping
-    public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult) {
+    @PostMapping("/login")
+    public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return "login/loginForm";
         }
@@ -38,6 +38,15 @@ public class LoginController {
             return "login/loginForm";
         }
 
+        Cookie cookie = new Cookie("memberID", String.valueOf(loginMember.getId()));
+        response.addCookie(cookie);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        loginService.expireCookie(response, "memberId");
         return "redirect:/";
     }
 }
