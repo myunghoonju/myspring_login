@@ -21,18 +21,18 @@ public class LoginCheckFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpReuest = (HttpServletRequest)request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse)response;
-        String requestURI = ((HttpServletRequest) request).getRequestURI();
+        HttpServletRequest httpRequest = (HttpServletRequest)request;
+        HttpServletResponse httpResponse = (HttpServletResponse)response;
+        String requestURI = httpRequest.getRequestURI();
 
         try {
             log.info("LoginCheckFilter doFilter {}", requestURI);
             if (!isLoginCheckPath(requestURI)) {
                 log.info("LoginCheckFilter startLoginCheck {}", requestURI);
-                HttpSession session = httpReuest.getSession();
+                HttpSession session = httpRequest.getSession();
                 if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER) == null) {
                     log.info("login check fail {}", requestURI);
-                    httpServletResponse.sendRedirect("/login?redirectURL="+requestURI);
+                    httpResponse.sendRedirect("/login?redirectURL="+requestURI);
                     return;
                 }
             }
