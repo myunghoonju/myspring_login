@@ -11,11 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiExceptionController {
 
     private static final String EXAMPLE = "ex";
+    private static final String BAD_REQUEST = "bad";
 
     @GetMapping("/api/members/{id}")
     public MemberDto getMember(@PathVariable("id") String id) {
         if (EXAMPLE.equals(id)) {
             throw new RuntimeException("wrong user");
+        }
+
+        if (BAD_REQUEST.equals(id)) {
+            throw new IllegalArgumentException("wrong request");
         }
 
         return new MemberDto("spring", "hello");
