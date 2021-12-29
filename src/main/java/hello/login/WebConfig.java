@@ -50,7 +50,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/", "/css/**", "/*.ico", "/members/add", "/login", "/logout", "/css/*",
-                                     "/error-ex", "/error-404", "/error-500", "/error-page/**");
+                                     "/error","/error-ex", "/error-404", "/error-500", "/error-page/**");
     }
 
     @Override
