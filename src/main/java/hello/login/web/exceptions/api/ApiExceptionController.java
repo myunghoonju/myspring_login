@@ -1,6 +1,7 @@
 package hello.login.web.exceptions.api;
 
 import hello.login.domain.member.MemberDto;
+import hello.login.web.exceptions.exception.BadRequestException;
 import hello.login.web.exceptions.exception.UserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,11 @@ public class ApiExceptionController {
         }
 
         return new MemberDto("spring", "hello");
+    }
+
+    @GetMapping("/api/response-status-ex1")
+    public String responseStatusEx1() {
+        throw new BadRequestException();
     }
 
 
