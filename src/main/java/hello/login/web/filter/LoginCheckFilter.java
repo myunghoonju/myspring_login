@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static hello.login.web.SessionConst.LOGIN_MEMBER;
+
 @Slf4j
 public class LoginCheckFilter implements Filter {
 
@@ -30,7 +32,7 @@ public class LoginCheckFilter implements Filter {
             if (!isLoginCheckPath(requestURI)) {
                 log.info("LoginCheckFilter startLoginCheck {}", requestURI);
                 HttpSession session = httpRequest.getSession();
-                if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER) == null) {
+                if (session == null || session.getAttribute(LOGIN_MEMBER.getSessionName()) == null) {
                     log.info("login check fail {}", requestURI);
                     httpResponse.sendRedirect("/login?redirectURL="+requestURI);
                     return;

@@ -1,12 +1,13 @@
 package hello.login.web.interceptor;
 
-import hello.login.web.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import static hello.login.web.SessionConst.LOGIN_MEMBER;
 
 @Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
@@ -17,7 +18,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         log.info("LoginCheckInterceptor start preHandle {}", requestURI);
 
         HttpSession session = request.getSession();
-        if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER) == null) {
+        if (session == null || session.getAttribute(LOGIN_MEMBER.getSessionName()) == null) {
             log.info("fail to authorise");
             response.sendRedirect("/login?redirectURL=" + requestURI);
             return false;

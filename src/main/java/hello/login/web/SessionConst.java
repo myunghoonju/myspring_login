@@ -1,5 +1,17 @@
 package hello.login.web;
 
-public interface SessionConst {
-    String LOGIN_MEMBER = "loginMember";
+public enum SessionConst {
+
+    LOGIN_MEMBER("loginMember"),
+    VIP_MEMBER("vipMember");
+
+    private final String sessionName;
+
+    SessionConst(String sessionName) {
+        this.sessionName = sessionName;
+    }
+
+    public String getSessionName() {
+        return sessionName;
+    }
 }
