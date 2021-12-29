@@ -43,12 +43,14 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LogInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/css/**", "/*.ico", "/error");
+                .excludePathPatterns("/css/**", "/*.ico", "/error", "/error-ex", "/error-404",
+                                     "/error-500", "/error-page/**");
 
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/css/**", "/*.ico", "/members/add", "/login", "/logout", "/css/*");
+                .excludePathPatterns("/", "/css/**", "/*.ico", "/members/add", "/login", "/logout", "/css/*",
+                                     "/error-ex", "/error-404", "/error-500", "/error-page/**");
     }
 
     @Override
