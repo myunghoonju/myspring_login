@@ -2,6 +2,7 @@ package hello.login;
 
 import hello.login.web.argumentResolver.LoginMemberArgumentResolver;
 import hello.login.web.exceptions.resolver.MyHandlerExceptionResolver;
+import hello.login.web.exceptions.resolver.UserHandlerExceptionResolver;
 import hello.login.web.filter.LogFilter;
 import hello.login.web.filter.LoginCheckFilter;
 import hello.login.web.interceptor.LogInterceptor;
@@ -64,5 +65,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(new MyHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
     }
 }

@@ -1,6 +1,7 @@
 package hello.login.web.exceptions.api;
 
 import hello.login.domain.member.MemberDto;
+import hello.login.web.exceptions.exception.UserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ public class ApiExceptionController {
 
     private static final String EXAMPLE = "ex";
     private static final String BAD_REQUEST = "bad";
+    private static final String USER_EX = "user-ex";
 
     @GetMapping("/api/members/{id}")
     public MemberDto getMember(@PathVariable("id") String id) {
@@ -21,6 +23,10 @@ public class ApiExceptionController {
 
         if (BAD_REQUEST.equals(id)) {
             throw new IllegalArgumentException("wrong request");
+        }
+
+        if (USER_EX.equals(id)) {
+            throw new UserException("user error");
         }
 
         return new MemberDto("spring", "hello");
