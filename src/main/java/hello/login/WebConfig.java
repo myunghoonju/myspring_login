@@ -11,6 +11,7 @@ import hello.login.web.typeConverter.converter.IntegerToStringConverter;
 import hello.login.web.typeConverter.converter.IpPortToStringConverter;
 import hello.login.web.typeConverter.converter.StringToIntegerConverter;
 import hello.login.web.typeConverter.converter.StringToIpPortConverter;
+import hello.login.web.typeConverter.formatter.MyNumberFormatter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -75,9 +76,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToIntegerConverter());
-        registry.addConverter(new IntegerToStringConverter());
+        // to test formatter below two are masked (priority issue)
+        // registry.addConverter(new StringToIntegerConverter());
+        // registry.addConverter(new IntegerToStringConverter());
         registry.addConverter(new StringToIpPortConverter());
         registry.addConverter(new IpPortToStringConverter());
+
+        registry.addFormatter(new MyNumberFormatter());
     }
 }

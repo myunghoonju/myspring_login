@@ -1,4 +1,4 @@
-package hello.typeConverter.converter;
+package hello.typeConverter.formatter;
 
 import hello.login.web.typeConverter.formatter.MyNumberFormatter;
 import org.junit.jupiter.api.Test;
